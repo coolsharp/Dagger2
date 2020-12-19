@@ -34,6 +34,12 @@ android {
         val options = this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
         options.jvmTarget = "1.8"
     }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile::class) {
+            options.compilerArgs.addAll(arrayOf("-Xmaxerrs", "500"))
+        }
+    }
 }
 
 dependencies {
@@ -45,8 +51,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("com.google.dagger:dagger-android:2.27")
     implementation("com.google.dagger:dagger-android-support:2.27")
-    annotationProcessor("com.google.dagger:dagger-android-processor:2.27")
-    annotationProcessor("com.google.dagger:dagger-compiler:2.27")
+    kapt("com.google.dagger:dagger-android-processor:2.27")
+    kapt("com.google.dagger:dagger-compiler:2.27")
     testImplementation("junit:junit:4.13.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
