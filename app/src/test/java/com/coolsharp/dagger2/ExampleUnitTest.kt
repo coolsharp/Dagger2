@@ -3,6 +3,10 @@ package com.coolsharp.dagger2
 import com.coolsharp.dagger2.example4.DaggerMyComponent
 import com.coolsharp.dagger2.example4.MyComponent
 import com.coolsharp.dagger2.example5.*
+import com.coolsharp.dagger2.example6.DaggerPersonComponent
+import com.coolsharp.dagger2.example6.PersonA
+import com.coolsharp.dagger2.example6.PersonB
+import com.coolsharp.dagger2.example6.PersonComponent
 import dagger.MembersInjector
 import org.junit.Test
 
@@ -43,5 +47,17 @@ class ExampleUnitTest {
         injector.injectMembers(coffeeMaker)
         str = coffeeMaker.str
         println(str)
+    }
+
+    @Test
+    fun testInjection() {
+        val personComponent: PersonComponent = DaggerPersonComponent.create()
+
+        val personA: PersonA = personComponent.personA;
+        println(personA.name + " : " + personA.age)
+
+        val personB: PersonB = PersonB();
+        DaggerPersonComponent.create().inject(personB)
+        println(personB.name + " : " + personB.age)
     }
 }
